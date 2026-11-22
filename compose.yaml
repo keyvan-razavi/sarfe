@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sarfe_store
+      POSTGRES_USER: sarfe
+      POSTGRES_PASSWORD: sarfe
+    ports:
+      - "5432:5432"
+    volumes:
+      - sarfe-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sarfe -d sarfe_store"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  sarfe-postgres:

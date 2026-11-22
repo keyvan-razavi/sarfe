@@ -1,0 +1,3 @@
+ALTER TABLE "BlogPost"
+ADD COLUMN "relatedPostSlugs" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[],
+ADD COLUMN "relatedProductSlugs" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[];

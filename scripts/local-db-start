@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PGROOT="$ROOT/.local/postgresql"
+mkdir -p "$PGROOT/socket"
+chmod 700 "$PGROOT/socket"
+export LD_LIBRARY_PATH="$PGROOT/root/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+BIN="$PGROOT/root/usr/lib/postgresql/17/bin"
+"$BIN/pg_ctl" -D "$PGROOT/data" -l "$PGROOT/postgres.log" -o "-h 127.0.0.1 -p 5432 -k $PGROOT/socket -c password_encryption=scram-sha-256 -c shared_memory_type=mmap" start
